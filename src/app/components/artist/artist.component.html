@@ -1,0 +1,52 @@
+<app-loading *ngIf="loading"></app-loading>
+
+<div class="container">
+    <div *ngIf="!loading" class="row animated fadeIn">
+        <div class="col-12 col-sm-3">
+            <img [src]="artist.images | noimage" class="img-circle img-fluid">
+        </div>
+        <div class="col-7 text-center ">
+            <h3>{{ artist.name }}</h3>
+            <p>
+                <a [href]="artist.external_urls.spotify" target="_blank">
+                    Go to artist page
+                </a>
+            </p>
+        </div>
+        <div class="col-2">
+            <button routerLink="/search" class="btn btn-outline-danger ">
+                Back
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="m-5 container">
+    <div class="table-responsive">
+        <div class="table text-white mx-auto">
+            <thead>
+                <tr class="text-center">
+                    <th class="field-1 align-middle">Photo</th>
+                    <th class="field-2 align-middle">Album</th>
+                    <th class="field-3 align-middle">Song</th>
+                    <th class="field-4 align-middle">Preview</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let track of topTracks">
+                    <td class="field-1 align-middle">
+                        <img [src]="track.album.images | noimage" class="img-thumb">
+                    </td>
+                    <td class="field-2 align-middle">{{ track.album.name }}</td>
+                    <td class="field-3 align-middle">{{ track.name }}</td>
+                    <td class="field-4 align-middle">
+                        <!--https://open.spotify.com/embed/track/1cVlW9WQiGlFdWUXFdFZGh-->
+                        <!--<audio [src]="track.preview_url" controls></audio>-->
+                        <iframe [src]="track.uri.substring(14, track.uri.length) | safedom" width="100%" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                    </td>
+                </tr>
+            </tbody>
+        </div>
+    </div>
+</div>
